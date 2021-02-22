@@ -1,3 +1,8 @@
 .trash-button:hover{
     cursor: pointer;
 }
+
+.pre{
+    background-color: black;
+    color: white;
+}

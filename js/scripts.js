@@ -9,6 +9,9 @@ const check = document.querySelector('#check');
 const select = document.querySelector('#select');
 
 const show = document.querySelector('#show');
+const pre = document.querySelector("#pre");
+
+
 
 function createHTMLElement(elementType){
     const wrapper = document.createElement('label');
@@ -74,5 +77,24 @@ select.addEventListener('click', e => createSelect());
 show.addEventListener('click', e => {
     const virtualForm = document.querySelector('#form').outerHTML;
     const stringForm = virtualForm.replace(/<button> Eliminar<\/button>/g, '');
-    console.log(stringForm);
+    pre.innerText=html_beautify(stringForm,
+        {
+            "indent_size": "2",
+            "indent_char": " ",
+            "max_preserve_newlines": "5",
+            "preserve_newlines": true,
+            "keep_array_indentation": false,
+            "break_chained_methods": false,
+            "indent_scripts": "keep",
+            "brace_style": "collapse",
+            "space_before_conditional": true,
+            "unescape_strings": false,
+            "jslint_happy": false,
+            "end_with_newline": false,
+            "wrap_line_length": "40",
+            "indent_inner_html": false,
+            "comma_first": false,
+            "e4x": false,
+            "indent_empty_lines": false
+          });
 })
