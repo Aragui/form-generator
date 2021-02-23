@@ -5,4 +5,6 @@
 .pre{
     background-color: black;
     color: white;
+    max-height: 400px;
+    overflow-y: scroll;
 }

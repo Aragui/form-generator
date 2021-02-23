@@ -10,6 +10,7 @@ const select = document.querySelector('#select');
 
 const show = document.querySelector('#show');
 const pre = document.querySelector("#pre");
+const clipboard = new Clipboard('.btn');
 
 
 
@@ -97,4 +98,9 @@ show.addEventListener('click', e => {
             "e4x": false,
             "indent_empty_lines": false
           });
+})
+
+
+copy.addEventListener('click',e=>{
+    toastr.success('Copiado!!');
 })
