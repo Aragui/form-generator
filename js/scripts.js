@@ -11,6 +11,7 @@ const select = document.querySelector('#select');
 const show = document.querySelector('#show');
 const pre = document.querySelector("#pre");
 const clipboard = new Clipboard('.btn');
+const clean = document.querySelector('#clean-form');
 
 
 
@@ -24,17 +25,20 @@ function generateUUID() {
     return uuid;
 }
 
-function moveElement(element, searchIndex){
+function moveElement(element, searchIndex) {
     const labels = [...document.querySelectorAll('#form>label')];
     const node = labels.find(item => item.id === element.id);
     const index = labels.indexOf(node);
     const anotherNode = labels[index + searchIndex];
     const position = searchIndex > 0 ? 'afterend' : 'beforebegin'
-    anotherNode.insertAdjacentElement(position, node);
+
+    index + searchIndex < 0 || index + searchIndex === labels.length
+    ? toastr.warning('No existe otro elemento', 'Advertencia')
+    : anotherNode.insertAdjacentElement(position, node);
 
 }
 
-function createHTMLElement(elementType){
+function createHTMLElement(elementType) {
     const wrapper = document.createElement('label');
     const element = document.createElement(elementType);
     const up = document.createElement('i');
@@ -56,31 +60,32 @@ function createHTMLElement(elementType){
     return [wrapper, element, up, down, del];
 }
 
-function createInput(type, value){
+function createInput(type, value) {
     const [wrapper, input, up, down, del] = createHTMLElement('input');
 
     input.type = type;
-    
-    switch(type){
+
+    wrapper.appendChild(input);
+
+    switch (type) {
         case 'button':
             input.value = value;
             break;
         case 'checkbox':
-            wrapper.innerText = value;
+            wrapper.insertAdjacentText('beforeend', value);
             break;
     }
 
-    wrapper.appendChild(input);
     wrapper.appendChild(up);
     wrapper.appendChild(down);
     wrapper.appendChild(del);
     form.appendChild(wrapper);
 }
 
-function createSelect(){
+function createSelect() {
     const [wrapper, select, up, down, del] = createHTMLElement('select');
 
-    [1,2,3].forEach(i => {
+    [1, 2, 3].forEach(i => {
         const option = document.createElement('option');
         option.innerText = `Opción ${i}`;
         select.appendChild(option);
@@ -111,7 +116,7 @@ select.addEventListener('click', e => createSelect());
 show.addEventListener('click', e => {
     const virtualForm = document.querySelector('#form').outerHTML;
     const stringForm = virtualForm.replace(/<button> Eliminar<\/button>/g, '');
-    pre.innerText=html_beautify(stringForm,
+    pre.innerText = html_beautify(stringForm,
         {
             "indent_size": "2",
             "indent_char": " ",
@@ -130,10 +135,12 @@ show.addEventListener('click', e => {
             "comma_first": false,
             "e4x": false,
             "indent_empty_lines": false
-          });
-})
+        });
+});
+
+clean.addEventListener('click', e => form.innerHTML = '');
 
 
-copy.addEventListener('click',e=>{
+copy.addEventListener('click', e => {
     toastr.success('Copiado!!');
-})
+});
