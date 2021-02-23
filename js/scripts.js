@@ -10,22 +10,53 @@ const select = document.querySelector('#select');
 
 const show = document.querySelector('#show');
 
+function generateUUID() {
+    let d = new Date().getTime();
+    const uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
+}
+
+function moveElement(element, searchIndex){
+    const labels = [...document.querySelectorAll('#form>label')];
+    const node = labels.find(item => item.id === element.id);
+    const index = labels.indexOf(node);
+    const anotherNode = labels[index + searchIndex];
+    const position = searchIndex > 0 ? 'afterend' : 'beforebegin'
+    anotherNode.insertAdjacentElement(position, node);
+
+}
+
 function createHTMLElement(elementType){
     const wrapper = document.createElement('label');
     const element = document.createElement(elementType);
+    const up = document.createElement('i');
+    const down = document.createElement('i');
     const del = document.createElement('i');
 
-    del.classList = 'far fa-trash-alt ml-1 trash-button'
+    up.classList = 'fas fa-arrow-up mx-2 button';
+    down.classList = 'fas fa-arrow-down mx-2 button';
+    del.classList = 'far fa-trash-alt mx-2 button';
 
-    return [wrapper, element, del];
+    wrapper.setAttribute('id', generateUUID(wrapper));
+
+    del.addEventListener('click', e => form.removeChild(wrapper));
+
+    up.addEventListener('click', e => moveElement(wrapper, -1));
+
+    down.addEventListener('click', e => moveElement(wrapper, 1));
+
+    return [wrapper, element, up, down, del];
 }
 
 function createInput(type, value){
-    const [wrapper, input, del] = createHTMLElement('input');
-    del.addEventListener('click', e => form.removeChild(wrapper));
+    const [wrapper, input, up, down, del] = createHTMLElement('input');
 
     input.type = type;
-
+    
     switch(type){
         case 'button':
             input.value = value;
@@ -36,14 +67,14 @@ function createInput(type, value){
     }
 
     wrapper.appendChild(input);
+    wrapper.appendChild(up);
+    wrapper.appendChild(down);
     wrapper.appendChild(del);
     form.appendChild(wrapper);
 }
 
 function createSelect(){
-    const [wrapper, select, del] = createHTMLElement('select');
-
-    del.addEventListener('click', e => form.removeChild(wrapper));
+    const [wrapper, select, up, down, del] = createHTMLElement('select');
 
     [1,2,3].forEach(i => {
         const option = document.createElement('option');
@@ -52,6 +83,8 @@ function createSelect(){
     })
 
     wrapper.appendChild(select);
+    wrapper.appendChild(up);
+    wrapper.appendChild(down);
     wrapper.appendChild(del);
     form.appendChild(wrapper);
 }
