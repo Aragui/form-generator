@@ -13,18 +13,6 @@ const pre = document.querySelector("#pre");
 const clipboard = new Clipboard('.btn');
 const clean = document.querySelector('#clean-form');
 
-
-
-function generateUUID() {
-    let d = new Date().getTime();
-    const uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        const r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
-}
-
 function moveElement(element, searchIndex) {
     const labels = [...document.querySelectorAll('#form>label')];
     const node = labels.find(item => item.id === element.id);
@@ -48,8 +36,6 @@ function createHTMLElement(elementType) {
     up.classList = 'fas fa-arrow-up mx-2 button';
     down.classList = 'fas fa-arrow-down mx-2 button';
     del.classList = 'far fa-trash-alt mx-2 button';
-
-    wrapper.setAttribute('id', generateUUID(wrapper));
 
     del.addEventListener('click', e => form.removeChild(wrapper));
 
@@ -115,7 +101,9 @@ select.addEventListener('click', e => createSelect());
 
 show.addEventListener('click', e => {
     const virtualForm = document.querySelector('#form').outerHTML;
-    const stringForm = virtualForm.replace(/<button> Eliminar<\/button>/g, '');
+    const regexButtons = /<i class="fas fa-arrow-up mx-2 button"><\/i><i class="fas fa-arrow-down mx-2 button"><\/i><i class="far fa-trash-alt mx-2 button"><\/i>/g;
+    const regexClass = / class="d-flex flex-column"/g;
+    const stringForm = virtualForm.replace(regexButtons, '').replace(regexClass, '');
     pre.innerText = html_beautify(stringForm,
         {
             "indent_size": "2",
@@ -130,7 +118,7 @@ show.addEventListener('click', e => {
             "unescape_strings": false,
             "jslint_happy": false,
             "end_with_newline": false,
-            "wrap_line_length": "40",
+            "wrap_line_length": "20",
             "indent_inner_html": false,
             "comma_first": false,
             "e4x": false,

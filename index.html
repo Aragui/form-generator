@@ -21,8 +21,8 @@
 
 <body class="pattern">
   <!--Barra-->
-  <nav class="navbar bg-secondary d-flex justify-content-center mb-5">
-    <h1 class="text-white">Form builder</h1>
+  <nav class="navbar bg-dark d-flex justify-content-center mb-5">
+    <h1 class="text-white title">Form builder</h1>
   </nav>
   <div class="container">
     <div class="row">
@@ -41,23 +41,23 @@
         <div class="card border-info mb-3">
           <div class="card-header">Controles</div>
           <div class="card-body d-flex flex-wrap justify-content-start">
-            <button id="date" class="btn btn-info w-25 my-2 mx-3">Fecha</button>
-            <button id="number" class="btn btn-info w-25 my-2 mx-3">Número</button>
-            <button id="text" class="btn btn-info w-25 my-2 mx-3">Texto</button>
-            <button id="button" class="btn btn-info w-25 my-2 mx-3">Botón</button>
-            <button id="file" class="btn btn-info w-25 my-2 mx-3">Archivo</button>
-            <button id="check" class="btn btn-info w-25 my-2 mx-3">Checkbox</button>
-            <button id="select" class="btn btn-info w-25 my-2 mx-3">Select</button>
+            <button id="date" class="btn btn-success w-25 my-2 mx-3 d-flex flex-column align-items-center"><i class="far fa-calendar-alt"></i>Fecha</button>
+            <button id="number" class="btn btn-success w-25 my-2 mx-3 d-flex flex-column  align-items-center"><i class="fas fa-calculator"></i>Número</button>
+            <button id="text" class="btn btn-success w-25 my-2 mx-3 d-flex flex-column align-items-center"><i class="far fa-file-alt"></i>Texto</button>
+            <button id="button" class="btn btn-success w-25 my-2 mx-3 d-flex flex-column align-items-center"><i class="fas fa-hockey-puck"></i>Botón</button>
+            <button id="file" class="btn btn-success w-25 my-2 mx-3 d-flex flex-column align-items-center"><i class="far fa-file"></i>Archivo</button>
+            <button id="check" class="btn btn-success w-25 my-2 mx-3 d-flex flex-column align-items-center"><i class="far fa-check-square"></i>Checkbox</button>
+            <button id="select" class="btn btn-success w-25 my-2 mx-3 d-flex flex-column align-items-center"><i class="far fa-caret-square-down"></i>Select</button>
           </div>
         </div>
         <div class="card border-success mb-3">
           <div class="card-header">Opciones</div>
           <div class="card-body text-success d-flex justify-content-between">
-            <button id="show" type="button" class="btn btn-primary mt-3 mx-1" data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop">
+            <button id="show" type="button" class="btn btn-primary mt-3 mx-1 d-flex flex-column align-items-center" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"><i class="far fa-file-code"></i>
             Exportar Formulario
           </button>
-          <button class="btn btn-danger mt-3 mx-1" id="clean-form">Limpiar formulario</button>
+          <button class="btn btn-danger mt-3 mx-1 d-flex flex-column align-items-center" id="clean-form"><i class="fas fa-eraser"></i>Limpiar formulario</button>
           </div>
       </div>
     </div>
