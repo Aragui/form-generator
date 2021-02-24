@@ -13,8 +13,18 @@ const pre = document.querySelector("#pre");
 const clipboard = new Clipboard('.btn');
 const clean = document.querySelector('#clean-form');
 
+function generateUUID() {
+    let d = new Date().getTime();
+    const uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
+}
+
 function moveElement(element, searchIndex) {
-    const labels = [...document.querySelectorAll('#form>label')];
+    const labels = [...document.querySelectorAll('#form>span')];
     const node = labels.find(item => item.id === element.id);
     const index = labels.indexOf(node);
     const anotherNode = labels[index + searchIndex];
@@ -27,11 +37,13 @@ function moveElement(element, searchIndex) {
 }
 
 function createHTMLElement(elementType) {
-    const wrapper = document.createElement('label');
+    const wrapper = document.createElement('span');
     const element = document.createElement(elementType);
     const up = document.createElement('i');
     const down = document.createElement('i');
     const del = document.createElement('i');
+
+    wrapper.id = generateUUID(); 
 
     up.classList = 'fas fa-arrow-up mx-2 button';
     down.classList = 'fas fa-arrow-down mx-2 button';
