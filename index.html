@@ -82,7 +82,11 @@
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          <button type="button" data-clipboard-target="#pre" id="copy" class="btn btn-primary">Copiar</button>
+          <div class="d-flex justify-content-center">
+            <button type="button" data-clipboard-target="#pre" id="copy" class="btn btn-primary d-flex flex-column align-items-center mx-1"><i class="far fa-clipboard"></i>Copiar</button>
+          <a class="btn btn-primary d-flex flex-column align-items-center mx-1" download="index.html" id="download"><i class="fas fa-download"></i>Descargar HTML</a>
+          </div>
+          
           <div class="container mt-3">
             <pre class="pre" id="pre"></pre>
           </div>

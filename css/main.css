@@ -19,3 +19,11 @@
 .title{
     font-family: 'Poppins', sans-serif;;
 }
+
+.btn{
+    transition: ease-in-out 0.1s;
+}
+
+.btn:active{
+    transform: scale(0.8);
+}

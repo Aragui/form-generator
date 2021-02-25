@@ -13,6 +13,8 @@ const pre = document.querySelector("#pre");
 const clipboard = new Clipboard('.btn');
 const clean = document.querySelector('#clean-form');
 
+const download = document.querySelector('#download');
+
 function generateUUID() {
     let d = new Date().getTime();
     const uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -116,7 +118,7 @@ show.addEventListener('click', e => {
     const regexButtons = /<i class="fas fa-arrow-up mx-2 button"><\/i><i class="fas fa-arrow-down mx-2 button"><\/i><i class="far fa-trash-alt mx-2 button"><\/i>/g;
     const regexClass = / class="d-flex flex-column"/g;
     const stringForm = virtualForm.replace(regexButtons, '').replace(regexClass, '');
-    pre.innerText = html_beautify(stringForm,
+    const beautyForm = html_beautify(stringForm,
         {
             "indent_size": "2",
             "indent_char": " ",
@@ -129,13 +131,20 @@ show.addEventListener('click', e => {
             "space_before_conditional": true,
             "unescape_strings": false,
             "jslint_happy": false,
-            "end_with_newline": false,
+            "end_with_newline": true,
             "wrap_line_length": "20",
             "indent_inner_html": false,
             "comma_first": false,
             "e4x": false,
             "indent_empty_lines": false
         });
+
+    pre.innerText = beautyForm;
+
+    const blob = new Blob([beautyForm], {type: 'text/html'});
+    const url = URL.createObjectURL(blob);
+    download.href = url
+
 });
 
 clean.addEventListener('click', e => form.innerHTML = '');
